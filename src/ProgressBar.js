@@ -9,7 +9,8 @@ class ProgressBar extends React.Component {
     onTop: PropTypes.bool,
     autoIncrement: PropTypes.bool,
     intervalTime: PropTypes.number,
-    spinner: PropTypes.oneOf([false, 'left', 'right'])
+    spinner: PropTypes.oneOf([false, 'left', 'right']),
+    background: PropTypes.string
   };
 
   static defaultProps = {
@@ -18,7 +19,8 @@ class ProgressBar extends React.Component {
     onTop: false,
     autoIncrement: false,
     intervalTime: 200,
-    spinner: 'left'
+    spinner: 'left',
+    background: ''
   };
 
   state = {
@@ -81,14 +83,14 @@ class ProgressBar extends React.Component {
   };
 
   render() {
-    const { onTop, spinner } = this.props;
+    const { onTop, spinner, background } = this.props;
     let { className } = this.props;
     const { percent } = this.state;
     className = classnames('react-progress-bar', className, {
       'react-progress-bar-on-top': onTop,
       'react-progress-bar-hide': percent < 0 || percent >= 100
     });
-    const style = { width: `${percent < 0 ? 0 : percent}%` };
+    const style = { background, width: `${percent < 0 ? 0 : percent}%` };
     const spinnerClassName = classnames('react-progress-bar-spinner', {
       [`react-progress-bar-spinner-${spinner}`]: spinner
     });
